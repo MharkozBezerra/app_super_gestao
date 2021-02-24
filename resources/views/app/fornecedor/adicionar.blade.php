@@ -21,7 +21,7 @@
                 {{-- Mensagem de retorno --}}
                 {{$msg ?? ''}}
                 <form method="POST" action="{{ route('app.fornecedor.adicionar') }}"> 
-                    <input type="hidden" name="id" value="{{$fornecedor->id }}">
+                    <input type="hidden" name="id" value="{{$fornecedor->id ?? '' }}">
                     @csrf
                     <input type="text" name="nome" placeholder="Nome" value="{{$fornecedor->nome ?? old('nome') }}" class="borda-preta">
                     {{-- Apresenta a mensagem de erro -> Caso houver ele será mostrado, caso não hover ficará em oculto --}}
@@ -35,10 +35,13 @@
                     <input type="text" name="email" placeholder="E-Mail" value="{{$fornecedor->email ?? old('email') }}" class="borda-preta">
                     {{-- Apresenta a mensagem de erro -> Caso houver ele será mostrado, caso não hover ficará em oculto --}}
                     {{ $errors->has('email') ? $errors->first('email') : '' }}
-                    <button type="submit" class="borda-presta">Cadastrar</button>
+                    <button type="submit" class="borda-presta"> Cadastrar</button>
                 </form>
             </div>
         </div>
 
     </div>
 @endsection
+
+
+    

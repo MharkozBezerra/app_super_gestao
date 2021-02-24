@@ -29,8 +29,8 @@ class FornecedorController extends Controller
     }
     public function adicionar(Request $request){
         $msg = "";
-        //Verifica se o token não está vazio
-        if($request->input('_token') !=''){
+        //Verifica se o token não está vazio e id é vazio - Adiciona 
+        if($request->input('_token') !='' && $request->input('id') ==''){
             $regras =[
                 'nome'=> 'required|min:3 |max:40',
                 'site'=> 'required',
@@ -57,6 +57,17 @@ class FornecedorController extends Controller
             //dados de acesso.
             $msg = "Cadastro realizado com sucesso!";
 
+        }
+        //Verifica se o token não está vazio e id não é vazio - Atualiza 
+        if($request->input('_token') !='' && $request->input('id') !=''){
+
+            $fornecedor = Fornecedor::find($request->input('id'));
+            $update = $fornecedor->update($request->all());
+            if($update){
+                $msg = "Realizado atualização com sucesso";
+            }else{
+                $msg = "Atualização não realizado";
+            }
         }
         return view('app.fornecedor.adicionar',['msg'=>$msg]);
     }
